@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './model/user.model';
+import { CreateUserResponse } from './response';
 
 @Injectable()
 export class UsersService {
@@ -12,11 +13,20 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
-  async create(createUserInput: CreateUserInput): Promise<User> {
-    const user = this.userRepository.create(createUserInput);
+  async create(createUserInput: CreateUserInput): Promise<CreateUserResponse> {
+    try {
+      const exists = await this.userRepository.findOne({email: createUserInput.email});
+      
+      if (exists) {
+        return { status: false, msg: "email already" };
+      }
     
-    
-    return this.userRepository.save(user);
+      const user = await this.userRepository.save(this.userRepository.create(createUserInput));
+      return { status: true, user: user, msg: "Created"};
+    } catch (e) {
+      console.log(e);
+      return { status: false, msg: "Couldn't create account" };
+    }
   }
 
   async findAll(): Promise<User[]> {

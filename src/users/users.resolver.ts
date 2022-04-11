@@ -3,13 +3,14 @@ import { UsersService } from './users.service';
 import { User } from './model/user.model';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { CreateUserResponse } from './response';
 
 @Resolver(of => User)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  @Mutation(returns => User)
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput): Promise<User> {
+  @Mutation(returns => CreateUserResponse)
+  createUser(@Args('createUserInput') createUserInput: CreateUserInput): Promise<CreateUserResponse> {
     return this.usersService.create(createUserInput);
   }
 
