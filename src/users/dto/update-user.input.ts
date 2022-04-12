@@ -1,10 +1,8 @@
-import { ArgsType, Field, InputType, Int, OmitType } from '@nestjs/graphql';
+import { ArgsType, Field, InputType, Int, PartialType } from '@nestjs/graphql';
 import { CreateUserInput } from './create-user.input';
 
 @InputType()
-class UpdateUserInputType extends OmitType(CreateUserInput, [
-    'email'
-] as const) {}
+class UpdateUserInputType extends PartialType(CreateUserInput) {}
 
 @ArgsType()
 @InputType()

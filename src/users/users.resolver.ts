@@ -25,8 +25,8 @@ export class UsersResolver {
   }
 
   @Mutation(returns => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.usersService.update(updateUserInput.id, updateUserInput);
+  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput): Promise<User> {
+    return this.usersService.update(updateUserInput);
   }
 
   @Mutation(returns => Boolean)

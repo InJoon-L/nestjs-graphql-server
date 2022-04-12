@@ -32,9 +32,10 @@ input UpdateUserInput {
 }
 
 input UpdateUserInputType {
+  email: String
   image: String
-  name: String!
-  password: String!
+  name: String
+  password: String
 }
 
 type User {
