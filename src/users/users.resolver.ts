@@ -20,8 +20,8 @@ export class UsersResolver {
   }
 
   @Query(returns => User, { name: 'user' })
-  findOne(@Args('id', { type: () => Int }) id: number): Promise<User> {
-    return this.usersService.findOne(id);
+  findOne(@Args('email', { type: () => String }) email: string): Promise<User> {
+    return this.usersService.findOne(email);
   }
 
   @Mutation(returns => User)

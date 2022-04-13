@@ -37,9 +37,9 @@ export class UsersService {
     }
   }
 
-  async findOne(id: number): Promise<User> {
+  async findOne(email: string): Promise<User> {
     try {
-      return this.userRepository.findOneOrFail(id);
+      return this.userRepository.findOneOrFail({ email: email });
     } catch (e) {
       console.log(e)
     }
